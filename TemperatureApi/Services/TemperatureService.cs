@@ -4,17 +4,24 @@ namespace TemperatureApi.Services
 {
     public interface ITemperatureService
     {
-        Task<double> GetCurrentTemperatureAsync();
+        Task<TemperatureResponse> GetCurrentTemperatureAsync();
     }
-    public class TemperatureService: ITemperatureService
+
+    public class TemperatureService : ITemperatureService
     {
         private readonly Random _random = new();
 
-        public Task<double> GetCurrentTemperatureAsync()
-        {     
-               double temparature= Math.Round(_random.NextDouble() * (45 - 15) + 15, 1);
-               return Task.FromResult(temparature);
-        
+        public async Task<TemperatureResponse> GetCurrentTemperatureAsync()
+        {
+            double temperature = Math.Round(_random.NextDouble() * (45 - 15) + 15, 1);
+
+            var response = new TemperatureResponse
+            {
+                Temperature = temperature,
+                Timestamp = DateTime.UtcNow.ToString("o")
+            };
+
+            return await Task.FromResult(response);
         }
     }
 }

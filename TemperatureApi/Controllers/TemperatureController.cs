@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using TemperatureApi.Models;
 using TemperatureApi.Services;
 
 namespace TemperatureApi.Controllers
@@ -22,15 +22,8 @@ namespace TemperatureApi.Controllers
         {
             try
             {
-                var temperature = await _temperatureService.GetCurrentTemperatureAsync();
-                var response = new
-                {
-                    temperature,
-                    unit = "celsius",
-                    timestamp = DateTime.UtcNow.ToString("o")
-                };
-
-                return Ok(response);
+                var temperatureData = await _temperatureService.GetCurrentTemperatureAsync();
+                return Ok(temperatureData);
             }
             catch (Exception ex)
             {
@@ -38,6 +31,5 @@ namespace TemperatureApi.Controllers
                 return StatusCode(500, new { error = "Internal Server Error" });
             }
         }
-
     }
 }

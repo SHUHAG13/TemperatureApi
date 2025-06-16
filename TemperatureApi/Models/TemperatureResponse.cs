@@ -2,8 +2,10 @@
 {
     public class TemperatureResponse
     {
-        public double temperature { get; set; }
-        public string unit { get; set; } = "celsius";
-        public DateTime timestamp { get; set; } = DateTime.UtcNow;
+        public double Temperature { get; set; }
+        public string Unit { get; set; } = "celsius";
+        public string Timestamp { get; set; } = DateTime.UtcNow.ToString("o");
+
+        
     }
 }
